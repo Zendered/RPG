@@ -22,6 +22,7 @@ namespace RPG.Services.CharactersService
             var serviceResponse = new ServiceResponse<List<GetCharacterDto>>();
             var userChar = mapper.Map<Character>(newCharacter);
             await context.AddAsync(userChar);
+            await context.SaveChangesAsync();
             var characters = await context.Characters.ToListAsync();
             serviceResponse.Data = characters.Select(c => mapper.Map<GetCharacterDto>(c)).ToList();
             return serviceResponse;
@@ -31,7 +32,7 @@ namespace RPG.Services.CharactersService
         {
             var serviceResponse = new ServiceResponse<List<GetCharacterDto>>();
             var characters = await context.Characters.ToListAsync();
-            serviceResponse.Data = characters.Select(c => mapper.Map<GetCharacterDto>(c)).ToList();
+            serviceResponse.Data = context.Characters.Select(c => mapper.Map<GetCharacterDto>(c)).ToList();
             return serviceResponse;
         }
 
@@ -56,12 +57,9 @@ namespace RPG.Services.CharactersService
                 userChar.Class = updatedCharacter.Class;
                 userChar.HitPoints = updatedCharacter.HitPoints;
                 userChar.Intelligence = updatedCharacter.Intelligence;
-
-                mapper.Map(updatedCharacter, userChar);
-                serviceResponse.Data = mapper.Map<GetCharacterDto>(userChar);
-
                 await context.SaveChangesAsync();
 
+                serviceResponse.Data = mapper.Map<GetCharacterDto>(userChar);
             }
             catch (Exception ex)
             {

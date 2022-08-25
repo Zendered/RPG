@@ -13,10 +13,6 @@ RUN dotnet restore "./RPG.csproj"
 COPY . .
 WORKDIR "/src/."
 RUN dotnet build "RPG.csproj" -c Release -o /app/build
-RUN dotnet dev-certs https --clean
-RUN dotnet dev-certs https
-RUN dotnet dev-certs https --trust
-RUN dotnet dev-certs https --check
 
 FROM build AS publish
 RUN dotnet publish "RPG.csproj" -c Release -o /app/publish /p:UseAppHost=false
