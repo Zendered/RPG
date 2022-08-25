@@ -11,9 +11,28 @@ namespace RPG.Data
             this.context = context;
         }
 
-        public Task<ServiceResponse<string>> Login(string username, string password)
+        public async Task<ServiceResponse<string>> Login(string username, string password)
         {
-            throw new NotImplementedException();
+            var res = new ServiceResponse<string>();
+
+            var user = await context.Users.FirstOrDefaultAsync(user => user.UserName == username);
+
+            if (user is null)
+            {
+                res.Success = false;
+                res.Menssage = "Username/Password Incorrect.";
+            }
+            else if (!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
+            {
+                res.Success = false;
+                res.Menssage = "Username/Password Incorrect.";
+            }
+            else
+            {
+                res.Data = user.Id.ToString();
+            }
+
+            return res;
         }
 
         public async Task<ServiceResponse<int>> Register(User user, string password)
@@ -51,6 +70,15 @@ namespace RPG.Data
             {
                 passwordSalt = hmac.Key;
                 passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+            }
+        }
+
+        private bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
+        {
+            using var hmac = new System.Security.Cryptography.HMACSHA512(passwordSalt);
+            {
+                var computeHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+                return computeHash.SequenceEqual(passwordHash);
             }
         }
     }
