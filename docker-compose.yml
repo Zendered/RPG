@@ -1,0 +1,20 @@
+version: "3.4"
+
+services:
+  rpg:
+    image: ${DOCKER_REGISTRY-}zendered/rpg
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+      - "8081:443"
+    depends_on:
+      - sqlserverdb
+  sqlserverdb:
+    image: "mcr.microsoft.com/mssql/server"
+    environment:
+      - "MSSQL_SA_PASSWORD=Numsey#2022"
+      - "ACCEPT_EULA=Y"
+    ports:
+      - "1433:1433"
