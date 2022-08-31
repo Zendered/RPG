@@ -1,5 +1,3 @@
-version: "3.4"
-
 services:
   rpg:
     image: ${DOCKER_REGISTRY-}zendered/rpg
@@ -16,5 +14,7 @@ services:
     environment:
       - "MSSQL_SA_PASSWORD=Passw#2022"
       - "ACCEPT_EULA=Y"
+    volumes:
+      - "./Data/Volumes:/var/opt/mssql/data"
     ports:
       - "1433:1433"
