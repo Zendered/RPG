@@ -7,6 +7,7 @@ using RPG.Data;
 using RPG.Services;
 using RPG.Services.CharactersService;
 using RPG.Services.Interfaces;
+using RPG.Services.WeaponService;
 using Swashbuckle.AspNetCore.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -31,6 +32,7 @@ builder.Services.AddSwaggerGen(configuration =>
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<ICharacterService, CharacterService>();
 builder.Services.AddScoped<IAuthRepository, AuthRepository>();
+builder.Services.AddScoped<IWeaponService, WeaponService>();
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<CharactersContext>(options => options.UseSqlServer(connectionString));
