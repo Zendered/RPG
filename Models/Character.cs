@@ -14,6 +14,7 @@ namespace RPG.Models
         public int Intelligence { get; set; } = 5;
         public User? User { get; set; }
         public Weapon? Weapon { get; set; }
+        public List<Skill>? Skills { get; set; }
         public RpgClassEnum Class { get; set; } = RpgClassEnum.Knight;
     }
 }
