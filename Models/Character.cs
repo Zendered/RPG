@@ -13,7 +13,7 @@ namespace RPG.Models
         public int Defense { get; set; } = 10;
         public int Intelligence { get; set; } = 5;
         public User? User { get; set; }
-
+        public Weapon? Weapon { get; set; }
         public RpgClassEnum Class { get; set; } = RpgClassEnum.Knight;
     }
 }
