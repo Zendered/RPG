@@ -26,5 +26,17 @@ namespace RPG.Controllers
         {
             return Ok(await fightService.SkillAttack(attack));
         }
+
+        [HttpPost]
+        public async Task<ActionResult<ServiceResponse<FightResultDto>>> Fight(FightRequestDto attack)
+        {
+            return Ok(await fightService.Fight(attack));
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<ServiceResponse<FightResultDto>>> GetHighScore()
+        {
+            return Ok(await fightService.GetHighScore());
+        }
     }
 }
