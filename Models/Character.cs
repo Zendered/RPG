@@ -12,9 +12,12 @@ namespace RPG.Models
         public int Strength { get; set; } = 10;
         public int Defense { get; set; } = 10;
         public int Intelligence { get; set; } = 5;
+        public RpgClassEnum Class { get; set; } = RpgClassEnum.Knight;
         public User? User { get; set; }
         public Weapon? Weapon { get; set; }
         public List<Skill>? Skills { get; set; }
-        public RpgClassEnum Class { get; set; } = RpgClassEnum.Knight;
+        public int Fights { get; set; }
+        public int Victories { get; set; }
+        public int Defeats { get; set; }
     }
 }

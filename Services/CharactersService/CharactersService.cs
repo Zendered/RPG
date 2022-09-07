@@ -120,5 +120,44 @@ namespace RPG.Services.CharactersService
             return serviceResponse;
 
         }
+
+        public async Task<ServiceResponse<GetCharacterDto>> AddCharacterSkill(AddCharacterSkillDto newCharacterSkill)
+        {
+            var serviceResponse = new ServiceResponse<GetCharacterDto>();
+
+            try
+            {
+                var character = await context.Characters
+                    .Include(c => c.Weapon)
+                    .Include(c => c.Skills)
+                    .FirstOrDefaultAsync(c => c.Id == newCharacterSkill.CharacterId && c.User.Id == GetUserId());
+
+                if (character is null)
+                {
+                    serviceResponse.Success = false;
+                    serviceResponse.Menssage = "Character not found";
+                    return serviceResponse;
+
+                }
+
+                var skill = await context.Skills.FirstOrDefaultAsync(s => s.Id == newCharacterSkill.SkillId);
+                if (skill is null)
+                {
+                    serviceResponse.Success = false;
+                    serviceResponse.Menssage = "Skill not found";
+                    return serviceResponse;
+                }
+
+                character.Skills.Add(skill);
+                await context.SaveChangesAsync();
+                serviceResponse.Data = mapper.Map<GetCharacterDto>(character);
+            }
+            catch (Exception ex)
+            {
+                serviceResponse.Success = false;
+                serviceResponse.Menssage = ex.Message;
+            }
+            return serviceResponse;
+        }
     }
 }

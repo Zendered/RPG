@@ -49,5 +49,13 @@ namespace RPG.Controllers
 
             return res.Data != null ? Ok(res) : NotFound(res);
         }
+
+        [HttpPost("Skill")]
+        public async Task<ActionResult<ServiceResponse<GetCharacterDto>>> AddCharacterSkill(AddCharacterSkillDto newCharacterSkill)
+        {
+            var res = await characterService.AddCharacterSkill(newCharacterSkill);
+
+            return res.Data != null ? Ok(res) : NotFound(res);
+        }
     }
 }
