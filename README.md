@@ -28,6 +28,9 @@ docker-compose up
 ```
 http://localhost:8080/swagger/index.html
 ```
+![rpg_api_swagger](https://user-images.githubusercontent.com/42588918/189125182-bec16abf-1cb4-453a-89a2-e75b9ee7361d.png)
+
+
  # Schema do database 🗄️
 
 ![image](https://user-images.githubusercontent.com/42588918/189042386-05c062ea-4af4-4023-b75c-dc0ac87d35bd.png)
