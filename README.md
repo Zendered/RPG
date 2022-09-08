@@ -30,4 +30,4 @@ http://localhost:8080/swagger/index.html
 ```
  # Schema do database 🗄️
 
-![image](https://user-images.githubusercontent.com/42588918/189040801-a6db832d-a109-4c17-9b85-c24d815e6a72.png)
+![image](https://user-images.githubusercontent.com/42588918/189042386-05c062ea-4af4-4023-b75c-dc0ac87d35bd.png)
